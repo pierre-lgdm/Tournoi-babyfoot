@@ -197,7 +197,8 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
       <div class="players-grid" id="players-grid"></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="tirageBinomes()">Tirer les binômes & générer les matchs</button>
-        <button class="btn btn-danger" onclick="resetAll()">Réinitialiser</button>
+        <button class="btn" onclick="clearScores()" style="color:#B07D00;border-color:#FAC775">Effacer les scores</button>
+        <button class="btn btn-danger" onclick="resetAll()">Réinitialiser tout</button>
       </div>
     </div>
     <div class="card">
@@ -355,8 +356,17 @@ async function tirageBinomes(){
   renderAll();
 }
 
+async function clearScores(){
+  if(!confirm('Effacer tous les scores de poule et de phase finale ?\nLes équipes et le tirage seront conservés.'))return;
+  state.poolScores={};
+  state.finaleScores={};
+  await saveState();
+  toast('Scores effacés');
+  renderAll();
+}
+
 async function resetAll(){
-  if(!confirm('Réinitialiser tout le tournoi ?'))return;
+  if(!confirm('Réinitialiser tout le tournoi ?\nÉquipes, scores et tirage seront supprimés.'))return;
   state={players:Array.from({length:14},(_,i)=>`Joueur ${i+1}`),teams:null,poolMatches:null,poolScores:{},finaleScores:{}};
   await saveState();toast('Tournoi réinitialisé');renderAll();
 }
@@ -382,14 +392,17 @@ function computeRanking(){
 }
 
 // Vérifie si tous les matchs de poule ont un score saisi
+function scoreValid(v){
+  if(v===null||v===undefined)return false;
+  const s=String(v).trim();
+  return s!==''&&s!=='undefined'&&s!=='null'&&!isNaN(parseInt(s))&&parseInt(s)>=0;
+}
+
 function poolComplete(){
-  if(!state.poolMatches)return false;
+  if(!state.poolMatches||state.poolMatches.length===0)return false;
   return state.poolMatches.every((_,i)=>{
     const s=state.poolScores[i];
-    if(!s)return false;
-    const a=String(s.a).trim(),b=String(s.b).trim();
-    return a!==''&&a!=='undefined'&&b!==''&&b!=='undefined'&&
-           !isNaN(parseInt(a))&&!isNaN(parseInt(b));
+    return s&&scoreValid(s.a)&&scoreValid(s.b);
   });
 }
 
@@ -397,10 +410,7 @@ function poolMatchesDone(){
   if(!state.poolMatches)return 0;
   return state.poolMatches.filter((_,i)=>{
     const s=state.poolScores[i];
-    if(!s)return false;
-    const a=String(s.a).trim(),b=String(s.b).trim();
-    return a!==''&&a!=='undefined'&&b!==''&&b!=='undefined'&&
-           !isNaN(parseInt(a))&&!isNaN(parseInt(b));
+    return s&&scoreValid(s.a)&&scoreValid(s.b);
   }).length;
 }
 
