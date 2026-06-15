@@ -36,19 +36,13 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
 .btn-primary{background:var(--blue);color:#fff;border-color:var(--blue)}
 .btn-primary:hover{background:#1b8fb3;border-color:#1b8fb3;color:#fff}
 .btn-danger{color:var(--red)}.btn-danger:hover{border-color:var(--red)}
-
-/* PLAYERS */
 .players-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
 .player-inp{padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#F4F8FB;font-size:14px;font-family:'Inter',sans-serif;width:100%;color:var(--noir)}
 .player-inp:focus{outline:none;border-color:var(--blue)}
-
-/* TOKEN */
 .token-row{display:flex;gap:8px;margin-bottom:.75rem}
 .token-inp{flex:1;padding:9px 14px;border:1px solid var(--border);border-radius:99px;background:#F4F8FB;font-size:15px;font-family:'Inter',sans-serif;color:var(--noir)}
 .token-inp:focus{outline:none;border-color:var(--blue)}
 .admin-hidden{display:none}
-
-/* CLASSEMENT */
 .ranking-table{width:100%;border-collapse:collapse}
 .ranking-table th{font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;font-weight:500;padding:7px 8px;border-bottom:1px solid var(--border);text-align:left;font-family:'IBM Plex Mono',monospace}
 .ranking-table th.r{text-align:right}
@@ -59,34 +53,21 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
 .rank-num{font-size:12px;font-weight:600;color:#aaa;font-family:'IBM Plex Mono',monospace;width:24px;display:inline-block}
 .rank-num.q{color:var(--blue)}
 .badge-q{display:inline-block;font-size:10px;padding:1px 7px;border-radius:99px;background:var(--blue20);color:var(--blue);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;margin-left:6px}
-
-/* MATCHS */
 .pool-match{border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:10px 12px;margin-bottom:7px;background:#fff}
-.pool-match.qf{border-left-color:var(--blue)}
-.pool-match.sf{border-left-color:var(--blue40)}
-.pool-match.petite{border-left-color:var(--amber)}
-.pool-match.finale{border-left-color:var(--green)}
-.pool-match-row{display:grid;grid-template-columns:1fr 38px 12px 38px 1fr;align-items:center;gap:6px}
+.pool-match-row{display:grid;grid-template-columns:1fr 60px 16px 60px 1fr;align-items:center;gap:6px}
 .pm-ta{text-align:right;font-size:14px;font-weight:600;color:var(--noir)}
 .pm-tb{text-align:left;font-size:14px;font-weight:600;color:var(--noir)}
-.pm-inp{width:38px;height:34px;text-align:center;font-size:16px;font-weight:700;border:1px solid var(--border);border-radius:6px;background:#F4F8FB;font-family:'Inter',sans-serif;color:var(--noir)}
-.pm-inp:focus{outline:none;border-color:var(--blue)}
 .pm-sep{text-align:center;font-size:14px;color:#ccc}
+.pm-round{font-size:10px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:#bbb;margin-bottom:6px}
+.pm-badge-win{font-size:10px;padding:1px 6px;border-radius:99px;background:var(--green-soft);color:#3a7a10;font-family:'IBM Plex Mono',monospace;text-transform:uppercase}
+.pm-badge-lose{font-size:10px;padding:1px 6px;border-radius:99px;background:#f5f5f5;color:#aaa;font-family:'IBM Plex Mono',monospace;text-transform:uppercase}
 .score-inp-prot{width:46px;height:38px;text-align:center;font-size:20px;font-weight:800;border:2px solid var(--border);border-radius:8px;background:#F4F8FB;font-family:'Inter',sans-serif;color:var(--noir);transition:border-color .15s;-moz-appearance:textfield}
 .score-inp-prot:focus{outline:none;border-color:var(--blue);background:#fff;color:var(--blue)}
 .score-inp-prot.set{border-color:var(--blue20);background:#fff;color:var(--blue)}
 .score-inp-prot::-webkit-inner-spin-button,.score-inp-prot::-webkit-outer-spin-button{-webkit-appearance:none}
-.pm-round{font-size:10px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:#bbb;margin-bottom:6px}
-.pm-badge-win{font-size:10px;padding:1px 6px;border-radius:99px;background:var(--green-soft);color:#3a7a10;font-family:'IBM Plex Mono',monospace;text-transform:uppercase}
-.pm-badge-lose{font-size:10px;padding:1px 6px;border-radius:99px;background:#f5f5f5;color:#aaa;font-family:'IBM Plex Mono',monospace;text-transform:uppercase}
 .section-lbl{font-size:12px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.07em;margin:14px 0 8px;display:flex;align-items:center;gap:7px;color:var(--blue)}
 .section-pip{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-
-/* BRACKET */
-.bracket-wrap{overflow-x:auto;padding-bottom:.5rem}
 .bracket-wrap{overflow-x:auto;padding-bottom:1rem}
-.bk-col{display:flex;flex-direction:column;padding:0 10px;flex-shrink:0}
-.bk-col-inner{display:flex;flex-direction:column;gap:0}
 .bk-match{background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:12px 14px;width:220px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .bk-match.sf{border-left-color:var(--blue40)}
 .bk-match.petite{border-left-color:var(--amber)}
@@ -97,23 +78,19 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
 .bk-team.tbd{color:#ccc;font-style:italic;font-size:12px;font-weight:400}
 .bk-team.winner{color:var(--blue)}
 .bk-team-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-.bk-score{font-size:20px;font-weight:800;color:var(--blue);min-width:28px;text-align:right;flex-shrink:0;letter-spacing:-0.02em}
+.bk-score{font-size:20px;font-weight:800;color:var(--blue);min-width:28px;text-align:right;flex-shrink:0}
 .bk-score.loser{color:#ddd;font-weight:600}
-.bk-score.winner-score{color:var(--blue)}
 .col-lbl{font-size:10px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.07em;color:#bbb;text-align:center;margin-bottom:10px;padding:0 10px}
 .badge-champ{background:var(--blue);border-radius:12px;padding:16px 18px;text-align:center;width:220px;box-shadow:0 4px 12px rgba(34,167,209,.3)}
 .badge-champ-lbl{font-size:10px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.7);margin-bottom:6px}
 .badge-champ-name{font-size:16px;font-weight:700;color:#fff;word-break:break-word;line-height:1.3}
 .badge-champ-bar{width:40px;height:3px;background:var(--green);margin:8px auto 0;border-radius:2px}
 .badge-3{background:var(--amber-soft);border-radius:10px;padding:12px 16px;text-align:center;width:220px;border:1px solid var(--amber)}
-
-/* TEAMS */
 .teams-table{width:100%;border-collapse:collapse}
 .teams-table th{font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;font-weight:500;padding:6px 0;border-bottom:1px solid var(--border);text-align:left;font-family:'IBM Plex Mono',monospace}
 .teams-table td{font-size:14px;padding:9px 0;border-bottom:1px solid #f5f5f5}
 .teams-table td:first-child{color:#aaa;font-size:12px;width:80px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase}
 .teams-table tr:last-child td{border-bottom:none}
-
 .qr-section{text-align:center;padding:1.25rem 0}
 .qr-url{font-size:11px;color:#aaa;margin-top:.5rem;word-break:break-all;font-family:'IBM Plex Mono',monospace}
 .notice{background:var(--blue20);border-left:3px solid var(--blue);padding:10px 14px;font-size:13px;color:#0e6e8c;margin-top:8px}
@@ -123,19 +100,17 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
 .legend{display:flex;gap:12px;margin-bottom:1rem;flex-wrap:wrap}
 .leg-item{display:flex;align-items:center;gap:5px;font-size:13px;color:#999;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.04em}
 .leg-dot{width:9px;height:9px;border-radius:50%}
-
 @media(max-width:640px){
   .players-grid{grid-template-columns:1fr 1fr}
   .tab{padding:10px 12px;font-size:14px}
-  .bk-match{width:150px}
-  .pool-match-row{grid-template-columns:1fr 34px 10px 34px 1fr;gap:4px}
+  .bk-match{width:160px}
+  .pool-match-row{grid-template-columns:1fr 46px 12px 46px 1fr;gap:4px}
   .pm-ta,.pm-tb{font-size:13px}
 }
 @media(max-width:420px){.players-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <header>
   <div style="display:flex;align-items:center">
     <span class="logo-text">ODETEC</span><span class="logo-bar"></span>
@@ -146,7 +121,6 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
     <span class="sync-lbl" id="sync-lbl">connexion…</span>
   </div>
 </header>
-
 <div class="tabs">
   <button class="tab active" onclick="showTab('poule',this)">Classement</button>
   <button class="tab" onclick="showTab('finale',this)">Phase finale</button>
@@ -154,115 +128,487 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
   <button class="tab" onclick="showTab('admin',this)">Back-office</button>
   <button class="tab" onclick="showTab('qr',this)">QR code</button>
 </div>
-
 <div class="app">
-
-<div id="tab-poule">
-  <div class="info-box">7 équipes · 10 matchs de poule · Top 8 qualifiés pour les quarts de finale — 18 matchs au total (~3h)</div>
-  <div class="card">
-    <div class="card-title">Classement</div>
-    <div id="ranking-display"><p style="font-size:13px;color:#aaa">En attente du tirage au sort.</p></div>
+  <div id="tab-poule">
+    <div class="info-box">7 équipes · 10 matchs de poule · Top 7 en quarts (1er exempt) — 18 matchs au total (~3h)</div>
+    <div class="card"><div class="card-title">Classement</div><div id="ranking-display"><p style="font-size:13px;color:#aaa">En attente du tirage au sort.</p></div></div>
+    <div class="card"><div class="card-title">Matchs de poule</div><div id="pool-matches-display"><p style="font-size:13px;color:#aaa">En attente du tirage au sort.</p></div></div>
   </div>
-  <div class="card">
-    <div class="card-title">Matchs de poule</div>
-    <div id="pool-matches-display"><p style="font-size:13px;color:#aaa">En attente du tirage au sort.</p></div>
-  </div>
-</div>
-
-<div id="tab-finale" style="display:none">
-  <div class="legend">
-    <span class="leg-item"><span class="leg-dot" style="background:var(--blue)"></span>Quarts</span>
-    <span class="leg-item"><span class="leg-dot" style="background:var(--blue40)"></span>Demi-finales</span>
-    <span class="leg-item"><span class="leg-dot" style="background:var(--amber)"></span>Petite finale</span>
-    <span class="leg-item"><span class="leg-dot" style="background:var(--green)"></span>Finale</span>
-  </div>
-  <div class="bracket-wrap"><div id="bracket-vis"></div></div>
-</div>
-
-<div id="tab-teams" style="display:none">
-  <div class="card">
-    <div class="card-title">Tirage des binômes</div>
-    <div id="teams-display"><p style="font-size:13px;color:#aaa">En attente du tirage au sort.</p></div>
-  </div>
-</div>
-
-<div id="tab-admin" style="display:none">
-  <div class="card">
-    <div class="card-title">Accès organisateur</div>
-    <div class="token-row">
-      <input class="token-inp" type="password" id="token-field" placeholder="Jeton d'accès…"/>
-      <button class="btn btn-primary" onclick="checkToken()">Connexion</button>
+  <div id="tab-finale" style="display:none">
+    <div class="legend">
+      <span class="leg-item"><span class="leg-dot" style="background:var(--blue)"></span>Quarts</span>
+      <span class="leg-item"><span class="leg-dot" style="background:var(--blue40)"></span>Demi-finales</span>
+      <span class="leg-item"><span class="leg-dot" style="background:var(--amber)"></span>Petite finale</span>
+      <span class="leg-item"><span class="leg-dot" style="background:var(--green)"></span>Finale</span>
     </div>
-    <p id="token-err" style="font-size:12px;color:var(--red);display:none">Jeton incorrect.</p>
+    <div class="bracket-wrap"><div id="bracket-vis"></div></div>
   </div>
-  <div class="admin-hidden" id="admin-content">
+  <div id="tab-teams" style="display:none">
+    <div class="card"><div class="card-title">Tirage des binômes</div><div id="teams-display"><p style="font-size:13px;color:#aaa">En attente du tirage au sort.</p></div></div>
+  </div>
+  <div id="tab-admin" style="display:none">
     <div class="card">
-      <div class="card-title">Joueurs — 14 participants (7 équipes de 2)</div>
-      <div class="players-grid" id="players-grid"></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="tirageBinomes()">Tirer les binômes & générer les matchs</button>
-        <button class="btn" onclick="clearScores()" style="color:#B07D00;border-color:#FAC775">Effacer les scores</button>
-        <button class="btn btn-danger" onclick="resetAll()">Réinitialiser tout</button>
+      <div class="card-title">Accès organisateur</div>
+      <div class="token-row">
+        <input class="token-inp" type="password" id="token-field" placeholder="Jeton d'accès…"/>
+        <button class="btn btn-primary" onclick="checkToken()">Connexion</button>
       </div>
+      <p id="token-err" style="font-size:12px;color:var(--red);display:none">Jeton incorrect.</p>
     </div>
-    <div class="card">
-      <div class="card-title">Saisie des scores — Phase de poule</div>
-      <div id="admin-pool-scores"></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Saisie des scores — Phase finale</div>
-      <div id="admin-finale-scores"></div>
+    <div class="admin-hidden" id="admin-content">
+      <div class="card">
+        <div class="card-title">Joueurs — 14 participants (7 équipes de 2)</div>
+        <div class="players-grid" id="players-grid"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="tirageBinomes()">Tirer les binômes & générer les matchs</button>
+          <button class="btn" onclick="clearScores()" style="color:#B07D00;border-color:var(--amber)">Effacer les scores</button>
+          <button class="btn btn-danger" onclick="resetAll()">Réinitialiser tout</button>
+        </div>
+      </div>
+      <div class="card"><div class="card-title">Saisie des scores — Phase de poule</div><div id="admin-pool-scores"></div></div>
+      <div class="card"><div class="card-title">Saisie des scores — Phase finale</div><div id="admin-finale-scores"></div></div>
     </div>
   </div>
-</div>
-
-<div id="tab-qr" style="display:none">
-  <div class="card">
-    <div class="card-title">Partager le tableau</div>
-    <div class="qr-section">
-      <img id="qr-img" src="" alt="QR code" style="width:180px;height:180px;border-radius:8px"/>
-      <div class="qr-url" id="qr-url"></div>
+  <div id="tab-qr" style="display:none">
+    <div class="card">
+      <div class="card-title">Partager le tableau</div>
+      <div class="qr-section">
+        <img id="qr-img" src="" alt="QR code" style="width:180px;height:180px;border-radius:8px"/>
+        <div class="qr-url" id="qr-url"></div>
+      </div>
+      <div class="notice">Les participants scannent ce QR code pour suivre les scores en direct.</div>
     </div>
-    <div class="notice">Les participants scannent ce QR code pour suivre les scores en direct.</div>
   </div>
-</div>
-
 </div>
 <div class="toast" id="toast"></div>
-
 <script>
 const SUPABASE_URL='https://ixquakphvkgfgffcjqyu.supabase.co';
 const SUPABASE_KEY='sb_publishable_722pkcDBiaF4tkTR0IjxNA_1HKP_OpF';
 const TOKEN='babyfoot2026';
 const HEADERS={'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=representation'};
-
-let state={
-  players:Array.from({length:14},(_,i)=>`Joueur ${i+1}`),
-  teams:null,
-  poolMatches:null,
-  poolScores:{},
-  finaleScores:{},
-};
+let state={players:Array.from({length:14},(_,i)=>`Joueur ${i+1}`),teams:null,poolMatches:null,poolScores:{},finaleScores:{}};
 let saveTimer=null,pollingInterval=null;
 
-// Pool schedule: 7 équipes, chaque équipe joue 3 matchs → 10 matchs
-// Tirage équilibré glouton
+/* ===== UTILS ===== */
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
+function setSS(ok){const d=document.getElementById('sync-dot'),l=document.getElementById('sync-lbl');if(ok){d.className='sync-dot ok';l.textContent='en direct';}else{d.className='sync-dot err';l.textContent='hors ligne';}}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function tn(idx){if(idx===null||idx===undefined)return null;if(!state.teams)return`Éq.${idx+1}`;return state.teams[idx]?.members||`Éq.${idx+1}`;}
+function tnShort(idx){if(idx===null||idx===undefined)return null;const m=tn(idx)||'?';return m.split(' & ').map(n=>n.split(' ')[0]).join(' & ');}
+function scoreValid(v){if(v===null||v===undefined)return false;const s=String(v).trim();const n=parseInt(s);return s!==''&&s!=='undefined'&&s!=='null'&&!isNaN(n)&&n>=0&&n<=10;}
+
+/* ===== TIRAGE ===== */
 function generatePoolSchedule(){
-  // Schedule fixe optimal : 7 équipes, 10 matchs
-  // Distribution garantie [3,3,3,2,3,3,3] — une équipe (aléatoire) joue 2 matchs, les 6 autres jouent 3
-  // Mathématiquement prouvé : 10 matchs × 2 slots = 20 → 6×3 + 1×2 = 20 ✓
-  const FIXED=[
-    [0,1],[2,6],[3,5],  // round 1
-    [0,2],[1,6],[4,5],  // round 2
-    [0,3],[1,4],[5,6],  // round 3
-    [2,4]               // match bonus
-  ];
-  // Permuter aléatoirement les 7 indices d'équipes pour varier les rencontres à chaque tirage
+  const FIXED=[[0,1],[2,6],[3,5],[0,2],[1,6],[4,5],[0,3],[1,4],[5,6],[2,4]];
   const perm=Array.from({length:7},(_,i)=>i);
-  for(let i=perm.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [perm[i],perm[j]]=[perm[j],perm[i]];
-  }
+  for(let i=perm.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[perm[i],perm[j]]=[perm[j],perm[i]];}
   return FIXED.map(([a,b])=>({tA:perm[a],tB:perm[b]}));
 }
 
+/* ===== SUPABASE ===== */
+async function loadState(){
+  try{
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/tournament?key=eq.state&select=value`,{headers:HEADERS});
+    if(!r.ok)throw 0;
+    const d=await r.json();
+    if(d.length&&d[0].value){const v=d[0].value;if(v.players)state.players=v.players;if(v.teams!==undefined)state.teams=v.teams;if(v.poolMatches!==undefined)state.poolMatches=v.poolMatches;if(v.poolScores)state.poolScores=v.poolScores;if(v.finaleScores)state.finaleScores=v.finaleScores;}
+    setSS(true);
+  }catch(e){setSS(false);}
+  renderAll();
+}
+async function saveState(){
+  try{
+    const body=JSON.stringify({key:'state',value:state,updated_at:new Date().toISOString()});
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/tournament?key=eq.state`,{method:'PATCH',headers:HEADERS,body});
+    if(!r.ok){const r2=await fetch(`${SUPABASE_URL}/rest/v1/tournament`,{method:'POST',headers:{...HEADERS,'Prefer':'resolution=merge-duplicates,return=representation'},body});if(!r2.ok)throw 0;}
+    setSS(true);saveTimer=null;
+  }catch(e){setSS(false);toast('Erreur de sauvegarde');saveTimer=null;}
+}
+function startPolling(){
+  if(pollingInterval)clearInterval(pollingInterval);
+  pollingInterval=setInterval(async()=>{
+    try{
+      const r=await fetch(`${SUPABASE_URL}/rest/v1/tournament?key=eq.state&select=value`,{headers:HEADERS});
+      if(!r.ok)throw 0;
+      const d=await r.json();
+      if(d.length&&d[0].value){
+        const v=d[0].value;
+        const rem=JSON.stringify(v),loc=JSON.stringify(state);
+        if(rem!==loc){
+          const typing=document.activeElement&&(document.activeElement.classList.contains('p-inp')||document.activeElement.classList.contains('score-inp-prot'));
+          const savePending=saveTimer!==null;
+          if(v.players&&!typing)state.players=v.players;
+          if(v.teams!==undefined)state.teams=v.teams;
+          if(v.poolMatches!==undefined)state.poolMatches=v.poolMatches;
+          if(v.poolScores&&!typing&&!savePending)state.poolScores=v.poolScores;
+          if(v.finaleScores&&!typing&&!savePending)state.finaleScores=v.finaleScores;
+          renderAll();
+        }
+      }
+      setSS(true);
+    }catch(e){setSS(false);}
+  },3000);
+}
+
+/* ===== AUTH & ACTIONS ===== */
+function checkToken(){
+  if(document.getElementById('token-field').value===TOKEN){
+    const ac=document.getElementById('admin-content');ac.classList.remove('admin-hidden');ac.style.display='block';
+    document.getElementById('token-err').style.display='none';renderAdminScores();
+  }else{document.getElementById('token-err').style.display='block';}
+}
+async function tirageBinomes(){
+  const inputs=document.querySelectorAll('.p-inp');
+  const noms=Array.from(inputs).map((inp,i)=>inp.value.trim()||state.players[i]||`Joueur ${i+1}`);
+  if(state.teams){if(!confirm('Relancer le tirage ?\nLes équipes et scores seront réinitialisés, les noms conservés.'))return;}
+  state.players=noms;
+  const s=shuffle([...state.players]);
+  state.teams=Array.from({length:7},(_,i)=>({name:`Équipe ${i+1}`,members:`${s[i*2]} & ${s[i*2+1]}`}));
+  state.poolMatches=generatePoolSchedule();
+  state.poolScores={};state.finaleScores={};
+  await saveState();toast('Tirage effectué — 10 matchs générés !');renderAll();
+}
+async function clearScores(){
+  if(!confirm('Effacer TOUS les scores (poule + phase finale) ?\nLes équipes et le tirage seront conservés.'))return;
+  state.poolScores={};state.finaleScores={};
+  await saveState();
+  toast('Scores effacés');
+  // Forcer recréation complète des inputs
+  document.getElementById('admin-pool-scores').innerHTML='';
+  document.getElementById('admin-finale-scores').innerHTML='';
+  renderAll();
+}
+async function resetAll(){
+  if(!confirm('Réinitialiser TOUT le tournoi ?\nÉquipes, scores et tirage seront supprimés.'))return;
+  state={players:Array.from({length:14},(_,i)=>`Joueur ${i+1}`),teams:null,poolMatches:null,poolScores:{},finaleScores:{}};
+  await saveState();
+  toast('Tournoi réinitialisé');
+  document.getElementById('admin-pool-scores').innerHTML='';
+  document.getElementById('admin-finale-scores').innerHTML='';
+  renderAll();
+}
+
+/* ===== CLASSEMENT ===== */
+function computeRanking(){
+  if(!state.teams||!state.poolMatches)return[];
+  const stats=Array.from({length:7},(_,i)=>({idx:i,pts:0,gf:0,ga:0,played:0}));
+  (state.poolMatches||[]).forEach((m,i)=>{
+    const s=state.poolScores[i];
+    if(!s||!scoreValid(s.a)||!scoreValid(s.b))return;
+    const a=parseInt(s.a),b=parseInt(s.b);
+    stats[m.tA].gf+=a;stats[m.tA].ga+=b;stats[m.tA].played++;
+    stats[m.tB].gf+=b;stats[m.tB].ga+=a;stats[m.tB].played++;
+    if(a>b)stats[m.tA].pts+=3;else if(b>a)stats[m.tB].pts+=3;else{stats[m.tA].pts+=1;stats[m.tB].pts+=1;}
+  });
+  stats.forEach(s=>s.diff=s.gf-s.ga);
+  stats.sort((a,b)=>b.pts-a.pts||b.diff-a.diff||b.gf-a.gf);
+  return stats;
+}
+function poolComplete(){
+  if(!state.poolMatches||state.poolMatches.length===0)return false;
+  return state.poolMatches.every((_,i)=>{const s=state.poolScores[i];return s&&scoreValid(s.a)&&scoreValid(s.b);});
+}
+function poolMatchesDone(){
+  if(!state.poolMatches)return 0;
+  return state.poolMatches.filter((_,i)=>{const s=state.poolScores[i];return s&&scoreValid(s.a)&&scoreValid(s.b);}).length;
+}
+
+/* ===== FINALE ===== */
+function getFW(key){
+  const s=state.finaleScores[key];
+  if(!s||!scoreValid(s.a)||!scoreValid(s.b))return null;
+  const a=parseInt(s.a),b=parseInt(s.b);if(a===b)return null;
+  return a>b?s.tA:s.tB;
+}
+function getFL(key){
+  const s=state.finaleScores[key];
+  if(!s||!scoreValid(s.a)||!scoreValid(s.b))return null;
+  const a=parseInt(s.a),b=parseInt(s.b);if(a===b)return null;
+  return a>b?s.tB:s.tA;
+}
+function getFScore(key,side){const s=state.finaleScores[key];if(!s||s[side]===''||s[side]===undefined||s[side]===null)return null;return parseInt(s[side]);}
+function buildFinale(){
+  const r=computeRanking();
+  const seeds=r.slice(0,7).map(x=>x.idx);
+  const s1=seeds[0],s2=seeds[1],s3=seeds[2],s4=seeds[3],s5=seeds[4],s6=seeds[5],s7=seeds[6]??null;
+  return{
+    qf1:{lbl:'QF · 2e vs 7e',type:'qf',tA:s2,tB:s7},
+    qf2:{lbl:'QF · 3e vs 6e',type:'qf',tA:s3,tB:s6},
+    qf3:{lbl:'QF · 4e vs 5e',type:'qf',tA:s4,tB:s5},
+    sf1:{lbl:'SF · 1er vs vainqueur QF1',type:'sf',tA:s1,tB:getFW('qf1')},
+    sf2:{lbl:'SF · vainqueur QF2 vs QF3',type:'sf',tA:getFW('qf2'),tB:getFW('qf3')},
+    petite:{lbl:'3e / 4e place',type:'petite',tA:getFL('sf1'),tB:getFL('sf2')},
+    finale:{lbl:'Finale',type:'finale',tA:getFW('sf1'),tB:getFW('sf2')},
+  };
+}
+
+/* ===== SCORE INPUT PROTÉGÉ ===== */
+function scoreCtrl(matchIdx,side,tA,tB,currentVal,isFinale){
+  const val=scoreValid(currentVal)?parseInt(currentVal):'';
+  const cls=val!==''?'score-inp-prot set':'score-inp-prot';
+  return`<input class="${cls}" type="text" inputmode="numeric" value="${val}" placeholder="·"
+    data-match="${matchIdx}" data-side="${side}" data-ta="${tA}" data-tb="${tB}" data-finale="${isFinale?1:0}" data-last="${val}"
+    oninput="onProtectedInput(this)" onblur="onProtectedBlur(this)" onfocus="this.select()"/>`;
+}
+function onProtectedInput(inp){
+  const raw=inp.value.replace(/[^0-9]/g,'');
+  if(raw===''){inp.value=inp.dataset.last!==''?inp.dataset.last:'';return;}
+  let num=Math.min(10,parseInt(raw));
+  inp.value=num;inp.dataset.last=String(num);inp.classList.add('set');
+  const idx=inp.dataset.match,side=inp.dataset.side;
+  const tA=parseInt(inp.dataset.ta),tB=parseInt(inp.dataset.tb);
+  const isFinale=inp.dataset.finale==='1';
+  if(isFinale){
+    if(!state.finaleScores[idx])state.finaleScores[idx]={a:'',b:'',tA,tB};
+    state.finaleScores[idx][side]=num;
+    if(!isNaN(tA))state.finaleScores[idx].tA=tA;
+    if(!isNaN(tB))state.finaleScores[idx].tB=tB;
+    renderBracket();
+  }else{
+    const i=parseInt(idx);
+    if(!state.poolScores[i])state.poolScores[i]={a:'',b:'',tA,tB};
+    state.poolScores[i][side]=num;state.poolScores[i].tA=tA;state.poolScores[i].tB=tB;
+    updateAllPoolBadges();renderRanking();renderPoolPublic();renderBracket();renderAdminFinaleScores();
+  }
+  clearTimeout(saveTimer);saveTimer=setTimeout(saveState,200);
+}
+function onProtectedBlur(inp){
+  if(inp.value===''||inp.value===undefined)inp.value=inp.dataset.last!==''?inp.dataset.last:'';
+}
+
+/* ===== BADGES POULE ===== */
+function updatePoolMatchBadges(idx){
+  const s=state.poolScores[idx]||{};
+  const aWin=scoreValid(s.a)&&scoreValid(s.b)&&parseInt(s.a)>parseInt(s.b);
+  const bWin=scoreValid(s.a)&&scoreValid(s.b)&&parseInt(s.b)>parseInt(s.a);
+  const el=document.querySelector(`.pool-match[data-idx="${idx}"]`);
+  if(!el)return;
+  const bA=el.querySelector('.badge-zone-a');const bB=el.querySelector('.badge-zone-b');
+  if(bA)bA.innerHTML=aWin?'<span class="pm-badge-win">Victoire</span>':bWin?'<span class="pm-badge-lose">Défaite</span>':'';
+  if(bB)bB.innerHTML=bWin?'<span class="pm-badge-win">Victoire</span>':aWin?'<span class="pm-badge-lose">Défaite</span>':'';
+}
+function updateAllPoolBadges(){if(state.poolMatches)state.poolMatches.forEach((_,i)=>updatePoolMatchBadges(i));}
+
+/* ===== RENDER CLASSEMENT ===== */
+function renderRanking(){
+  if(!state.teams){document.getElementById('ranking-display').innerHTML='<p style="font-size:13px;color:#aaa">En attente du tirage.</p>';return;}
+  const ranking=computeRanking();
+  let h=`<table class="ranking-table"><thead><tr><th>#</th><th>Équipe</th><th class="r">J</th><th class="r">Pts</th><th class="r">GF</th><th class="r">GA</th><th class="r">+/-</th></tr></thead><tbody>`;
+  ranking.forEach((s,i)=>{
+    const seed=i+1;const note=seed===1?'Exempt QF':'Qualifié QF';
+    h+=`<tr class="qualified"><td><span class="rank-num q">${seed}</span><span class="badge-q">${note}</span></td>
+    <td style="font-weight:600">${tn(s.idx)||'?'}</td><td class="r">${s.played}</td>
+    <td class="r" style="font-weight:700;color:var(--blue)">${s.pts}</td>
+    <td class="r">${s.gf}</td><td class="r">${s.ga}</td>
+    <td class="r" style="color:${s.diff>0?'#3a7a10':s.diff<0?'var(--red)':'#aaa'};font-weight:600">${s.diff>0?'+':''}${s.diff}</td></tr>`;
+  });
+  h+='</tbody></table><p style="font-size:11px;color:#aaa;margin-top:8px;font-family:IBM Plex Mono,monospace">V=3pts · N=1pt · D=0 · Départage au goal-average · 1er exempt de quart</p>';
+  document.getElementById('ranking-display').innerHTML=h;
+}
+
+/* ===== RENDER MATCHS POULE PUBLIC ===== */
+function renderPoolPublic(){
+  if(!state.teams||!state.poolMatches){document.getElementById('pool-matches-display').innerHTML='<p style="font-size:13px;color:#aaa">En attente du tirage.</p>';return;}
+  let h='';
+  state.poolMatches.forEach((m,i)=>{
+    const s=state.poolScores[i]||{};
+    const sa=scoreValid(s.a)?s.a:'·',sb=scoreValid(s.b)?s.b:'·';
+    const aWin=sa!=='·'&&sb!=='·'&&parseInt(sa)>parseInt(sb);
+    const bWin=sa!=='·'&&sb!=='·'&&parseInt(sb)>parseInt(sa);
+    h+=`<div class="pool-match"><div class="pm-round">Match ${i+1}</div>
+    <div class="pool-match-row">
+      <div class="pm-ta" style="${aWin?'color:var(--blue)':''}">${tnShort(m.tA)||'?'} ${aWin?'<span class="pm-badge-win">Vic</span>':bWin?'<span class="pm-badge-lose">Déf</span>':''}</div>
+      <span style="text-align:center;font-size:20px;font-weight:800;color:var(--blue)">${sa}</span>
+      <span class="pm-sep">–</span>
+      <span style="text-align:center;font-size:20px;font-weight:800;color:var(--blue)">${sb}</span>
+      <div class="pm-tb" style="${bWin?'color:var(--blue)':''}">${bWin?'<span class="pm-badge-win">Vic</span>':aWin?'<span class="pm-badge-lose">Déf</span>':''} ${tnShort(m.tB)||'?'}</div>
+    </div></div>`;
+  });
+  document.getElementById('pool-matches-display').innerHTML=h;
+}
+
+/* ===== RENDER BRACKET ===== */
+function bkTeamHtml(idx,key,isA){
+  const w=getFW(key),l=getFL(key);
+  const score=isA?getFScore(key,'a'):getFScore(key,'b');
+  if(idx===null||idx===undefined)return`<div class="bk-team tbd"><span class="bk-team-name">À déterminer</span></div>`;
+  const isWin=w===idx,isLose=l===idx&&l!==null;
+  return`<div class="bk-team${isWin?' winner':''}">
+    <span class="bk-team-name" title="${tn(idx)||''}">${tnShort(idx)||'?'}</span>
+    ${score!==null?`<span class="bk-score${isLose?' loser':''}">${score}</span>`:''}
+  </div>`;
+}
+function bkCard(key,f){
+  const cls=f.type==='finale'?'finale':f.type==='petite'?'petite':f.type==='sf'?'sf':'';
+  return`<div class="bk-match ${cls}"><div class="bk-round">${f.lbl}</div>${bkTeamHtml(f.tA,key,true)}${bkTeamHtml(f.tB,key,false)}</div>`;
+}
+function renderBracket(){
+  if(!poolComplete()){
+    const done=poolMatchesDone(),total=state.poolMatches?state.poolMatches.length:10;
+    document.getElementById('bracket-vis').innerHTML=`<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center">
+      <div style="font-size:32px;margin-bottom:12px">⏳</div>
+      <div style="font-size:15px;font-weight:600;color:var(--noir);margin-bottom:6px">Phase finale verrouillée</div>
+      <div style="font-size:13px;color:#888;margin-bottom:16px">Les quarts s'afficheront une fois tous les matchs de poule terminés.</div>
+      <div style="background:var(--blue20);border-radius:99px;padding:8px 20px;display:inline-block;font-size:13px;color:var(--blue);font-family:'IBM Plex Mono',monospace">${done} / ${total} matchs joués</div>
+    </div>`;return;
+  }
+  const f=buildFinale();
+  const champ=getFW('finale'),third=getFW('petite');
+  const champHtml=champ!==null&&champ!==undefined
+    ?`<div class="badge-champ"><div class="badge-champ-lbl">Champion</div><div class="badge-champ-name">${tnShort(champ)||'?'}</div><div class="badge-champ-bar"></div></div>`
+    :`<div class="badge-champ" style="background:var(--blue20)"><div class="badge-champ-lbl" style="color:var(--blue)">Champion</div><div class="badge-champ-name" style="color:var(--blue);font-size:13px;font-weight:400;font-style:italic">En attente</div></div>`;
+  const thirdHtml=third!==null&&third!==undefined
+    ?`<div class="badge-3"><div style="font-size:10px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;color:var(--amber);margin-bottom:4px">3e place</div><div style="font-size:14px;font-weight:700">${tnShort(third)}</div></div>`:'';
+  document.getElementById('bracket-vis').innerHTML=`<div style="min-width:900px">
+  <div style="display:flex;align-items:flex-start;gap:0;margin-bottom:28px">
+    <div style="flex-shrink:0"><div class="col-lbl">Quarts de finale</div>
+      <div style="display:flex;flex-direction:column;gap:16px">${bkCard('qf1',f.qf1)}${bkCard('qf2',f.qf2)}${bkCard('qf3',f.qf3)}</div></div>
+    <svg width="52" height="310" style="flex-shrink:0;overflow:visible;margin-top:28px">
+      <path d="M0,45 H20 V55 H52" fill="none" stroke="#A7DCED" stroke-width="2"/>
+      <path d="M0,157 H20 V214 H52" fill="none" stroke="#A7DCED" stroke-width="2"/>
+      <path d="M0,261 H20 V214 H52" fill="none" stroke="#A7DCED" stroke-width="2"/>
+    </svg>
+    <div style="flex-shrink:0"><div class="col-lbl">Demi-finales</div>
+      <div style="display:flex;flex-direction:column"><div>${bkCard('sf1',f.sf1)}</div><div style="margin-top:140px">${bkCard('sf2',f.sf2)}</div></div></div>
+    <svg width="52" height="260" style="flex-shrink:0;overflow:visible;margin-top:28px">
+      <path d="M0,45 H20 V136 H52" fill="none" stroke="#A7DCED" stroke-width="2"/>
+      <path d="M0,228 H20 V136 H52" fill="none" stroke="#A7DCED" stroke-width="2"/>
+    </svg>
+    <div style="flex-shrink:0"><div class="col-lbl" style="color:var(--green)">Finale</div><div style="margin-top:88px">${bkCard('finale',f.finale)}</div></div>
+    <svg width="40" height="60" style="flex-shrink:0;overflow:visible;margin-top:116px"><path d="M0,30 H40" fill="none" stroke="#9EE44A" stroke-width="2.5"/></svg>
+    <div style="flex-shrink:0;margin-top:100px">${champHtml}</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;border-top:1px solid var(--border);padding-top:20px">
+    <div><div class="col-lbl" style="color:var(--amber);text-align:left;padding:0 0 8px 0">Petite finale — 3e place</div>${bkCard('petite',f.petite)}</div>
+    ${thirdHtml}
+  </div></div>`;
+}
+
+/* ===== ADMIN POOL SCORES ===== */
+function renderAdminPoolScores(){
+  if(!state.teams||!state.poolMatches){document.getElementById('admin-pool-scores').innerHTML='<p style="font-size:13px;color:#aaa">Effectuez d\'abord le tirage.</p>';return;}
+  const container=document.getElementById('admin-pool-scores');
+  const existing=container.querySelectorAll('.pool-match[data-idx]');
+  const anyFocused=Array.from(container.querySelectorAll('.score-inp-prot')).some(inp=>document.activeElement===inp);
+  if(existing.length===state.poolMatches.length&&anyFocused)return;
+  if(existing.length===state.poolMatches.length){
+    const inputs=container.querySelectorAll('.score-inp-prot');
+    inputs.forEach(inp=>{
+      if(document.activeElement===inp)return;
+      const idx=parseInt(inp.dataset.match),side=inp.dataset.side;
+      const s=state.poolScores[idx]||{};
+      const val=scoreValid(s[side])?parseInt(s[side]):'';
+      const cur=inp.value!==''?parseInt(inp.value):'';
+      if(cur!==val){inp.value=val;inp.dataset.last=val!==''?String(val):'';val!==''?inp.classList.add('set'):inp.classList.remove('set');}
+    });
+    updateAllPoolBadges();return;
+  }
+  let h='';
+  state.poolMatches.forEach((m,i)=>{
+    const s=state.poolScores[i]||{};
+    const sa=scoreValid(s.a)?s.a:'',sb=scoreValid(s.b)?s.b:'';
+    const aWin=scoreValid(s.a)&&scoreValid(s.b)&&parseInt(s.a)>parseInt(s.b);
+    const bWin=scoreValid(s.a)&&scoreValid(s.b)&&parseInt(s.b)>parseInt(s.a);
+    h+=`<div class="pool-match" data-idx="${i}"><div class="pm-round">Match ${i+1}</div>
+    <div class="pool-match-row">
+      <div class="pm-ta">${tn(m.tA)||'?'} <span class="badge-zone-a">${aWin?'<span class="pm-badge-win">Victoire</span>':bWin?'<span class="pm-badge-lose">Défaite</span>':''}</span></div>
+      ${scoreCtrl(i,'a',m.tA,m.tB,sa,false)}
+      <span class="pm-sep">–</span>
+      ${scoreCtrl(i,'b',m.tA,m.tB,sb,false)}
+      <div class="pm-tb"><span class="badge-zone-b">${bWin?'<span class="pm-badge-win">Victoire</span>':aWin?'<span class="pm-badge-lose">Défaite</span>':''}</span> ${tn(m.tB)||'?'}</div>
+    </div></div>`;
+  });
+  container.innerHTML=h;
+}
+
+/* ===== ADMIN FINALE SCORES ===== */
+function finaleRow(key,lbl,tA,tB,borderColor){
+  const s=state.finaleScores[key]||{};
+  const sa=scoreValid(s.a)?s.a:'',sb=scoreValid(s.b)?s.b:'';
+  const w=getFW(key),l=getFL(key);
+  const hasT=tA!==null&&tA!==undefined&&tB!==null&&tB!==undefined;
+  const teamA=hasT?tn(tA):`<span style="color:#ccc;font-style:italic;font-size:12px">À déterminer</span>`;
+  const teamB=hasT?tn(tB):`<span style="color:#ccc;font-style:italic;font-size:12px">À déterminer</span>`;
+  return`<div class="pool-match" style="border-left-color:${borderColor}"><div class="pm-round">${lbl}</div>
+  <div class="pool-match-row">
+    <div class="pm-ta">${teamA} ${w===tA&&tA!==null?'<span class="pm-badge-win">Victoire</span>':l===tA&&tA!==null?'<span class="pm-badge-lose">Défaite</span>':''}</div>
+    ${hasT?scoreCtrl(key,'a',tA,tB,sa,true):`<span style="color:#ccc;font-size:18px;text-align:center">·</span>`}
+    <span class="pm-sep">–</span>
+    ${hasT?scoreCtrl(key,'b',tA,tB,sb,true):`<span style="color:#ccc;font-size:18px;text-align:center">·</span>`}
+    <div class="pm-tb">${w===tB&&tB!==null?'<span class="pm-badge-win">Victoire</span>':l===tB&&tB!==null?'<span class="pm-badge-lose">Défaite</span>':''} ${teamB}</div>
+  </div></div>`;
+}
+function renderAdminFinaleScores(){
+  const ac=document.getElementById('admin-content');
+  if(!ac||ac.style.display==='none'||ac.classList.contains('admin-hidden'))return;
+  if(!state.teams){document.getElementById('admin-finale-scores').innerHTML='<p style="font-size:13px;color:#aaa">Effectuez d\'abord le tirage.</p>';return;}
+  if(!poolComplete()){
+    const done=poolMatchesDone(),total=state.poolMatches?state.poolMatches.length:10;
+    document.getElementById('admin-finale-scores').innerHTML=`<div style="background:var(--blue20);border-left:3px solid var(--blue);padding:12px 16px;font-size:13px;color:var(--blue)">
+      <strong>Phase finale verrouillée</strong> — Saisissez d'abord les ${total} scores de poule.<br>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px">${done} / ${total} matchs joués</span></div>`;return;
+  }
+  const f=buildFinale();
+  let h='';
+  h+=`<div class="section-lbl"><span class="section-pip" style="background:var(--blue)"></span>Quarts de finale</div>`;
+  h+=finaleRow('qf1',f.qf1.lbl,f.qf1.tA,f.qf1.tB,'var(--blue)');
+  h+=finaleRow('qf2',f.qf2.lbl,f.qf2.tA,f.qf2.tB,'var(--blue)');
+  h+=finaleRow('qf3',f.qf3.lbl,f.qf3.tA,f.qf3.tB,'var(--blue)');
+  h+=`<div class="section-lbl"><span class="section-pip" style="background:var(--blue40)"></span>Demi-finales</div>`;
+  h+=finaleRow('sf1',f.sf1.lbl,f.sf1.tA,f.sf1.tB,'var(--blue40)');
+  h+=finaleRow('sf2',f.sf2.lbl,f.sf2.tA,f.sf2.tB,'var(--blue40)');
+  h+=`<div class="section-lbl"><span class="section-pip" style="background:var(--amber)"></span>Petite finale</div>`;
+  h+=finaleRow('petite',f.petite.lbl,f.petite.tA,f.petite.tB,'var(--amber)');
+  h+=`<div class="section-lbl"><span class="section-pip" style="background:var(--green)"></span>Finale</div>`;
+  h+=finaleRow('finale',f.finale.lbl,f.finale.tA,f.finale.tB,'var(--green)');
+  document.getElementById('admin-finale-scores').innerHTML=h;
+}
+
+/* ===== RENDER TEAMS ===== */
+function renderTeams(){
+  if(!state.teams){document.getElementById('teams-display').innerHTML='<p style="font-size:13px;color:#aaa">En attente du tirage.</p>';return;}
+  let h='<table class="teams-table"><thead><tr><th>Équipe</th><th>Binôme</th></tr></thead><tbody>';
+  state.teams.forEach(t=>h+=`<tr><td>${t.name}</td><td style="font-weight:600">${t.members}</td></tr>`);
+  h+='</tbody></table>';
+  document.getElementById('teams-display').innerHTML=h;
+}
+
+/* ===== RENDER PLAYERS ===== */
+function renderPlayersGrid(){
+  const grid=document.getElementById('players-grid');
+  const existing=grid.querySelectorAll('.p-inp');
+  const anyFocused=Array.from(existing).some(inp=>document.activeElement===inp);
+  if(anyFocused)return;
+  if(existing.length===14){existing.forEach((inp,i)=>{inp.value=state.players[i]||'';});return;}
+  let h='';
+  for(let i=0;i<14;i++){
+    const ti=Math.floor(i/2);
+    if(i%2===0)h+=`<div style="grid-column:1/-1;font-size:11px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-top:${i>0?'8px':'0'}">Équipe ${ti+1}</div>`;
+    h+=`<input class="player-inp p-inp" placeholder="Joueur ${i%2===0?'A':'B'}" value="${state.players[i]||''}"/>`;
+  }
+  grid.innerHTML=h;
+}
+
+/* ===== RENDER QR ===== */
+function renderQR(){
+  const url=window.location.href.split('#')[0];
+  document.getElementById('qr-img').src=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&color=22A7D1&data=${encodeURIComponent(url)}`;
+  document.getElementById('qr-url').textContent=url;
+}
+
+/* ===== RENDER ALL ===== */
+function renderAdminScores(){renderAdminPoolScores();renderAdminFinaleScores();}
+function renderAll(){renderRanking();renderPoolPublic();renderBracket();renderTeams();renderPlayersGrid();renderAdminScores();renderQR();}
+
+/* ===== NAVIGATION ===== */
+function showTab(name,btn){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.app > div[id^="tab-"]').forEach(d=>d.style.display='none');
+  document.getElementById('tab-'+name).style.display='block';
+  if(btn)btn.classList.add('active');
+}
+
+loadState();startPolling();
+</script>
+</body>
+</html>
