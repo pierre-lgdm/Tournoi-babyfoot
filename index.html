@@ -122,6 +122,46 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
   .pm-ta,.pm-tb{font-size:13px}
 }
 @media(max-width:420px){.players-grid{grid-template-columns:1fr}}
+
+/* TIRAGE INTERACTIF */
+.draw-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.draw-box{background:#fff;border-radius:16px;padding:2rem;max-width:900px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+.draw-title{font-size:18px;font-weight:700;color:var(--noir);margin-bottom:4px;text-align:center}
+.draw-sub{font-size:13px;color:#888;text-align:center;margin-bottom:1.5rem;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em}
+.draw-current{background:linear-gradient(135deg,var(--blue) 0%,#1b8fb3 100%);border-radius:14px;padding:2rem;text-align:center;margin-bottom:1.5rem;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;position:relative;overflow:hidden}
+.draw-current::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(158,228,74,.2) 0%,transparent 60%);pointer-events:none}
+.draw-step{font-size:11px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.7);margin-bottom:6px;position:relative}
+.draw-name{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.1;position:relative;min-height:42px}
+.draw-name.placeholder{font-size:18px;font-weight:500;color:rgba(255,255,255,.5);font-style:italic;letter-spacing:0}
+.draw-team{font-size:14px;color:rgba(255,255,255,.85);margin-top:8px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em;position:relative}
+.draw-name.rolling{animation:roll .08s infinite}
+@keyframes roll{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-3px);opacity:.7}}
+.draw-teams-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:1.5rem}
+.draw-team-card{background:#F4F8FB;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;transition:all .25s}
+.draw-team-card.full{border-color:var(--blue);background:#fff;box-shadow:0 2px 8px rgba(34,167,209,.1)}
+.draw-team-card.next{border-color:var(--green);background:var(--green-soft);box-shadow:0 0 0 3px rgba(158,228,74,.2)}
+.draw-team-label{font-size:10px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.07em;color:#bbb;margin-bottom:4px}
+.draw-team-card.full .draw-team-label{color:var(--blue)}
+.draw-team-card.next .draw-team-label{color:#3a7a10}
+.draw-team-slot{font-size:13px;font-weight:600;color:var(--noir);min-height:38px;display:flex;flex-direction:column;justify-content:center;line-height:1.4}
+.draw-team-slot .empty{color:#ccc;font-style:italic;font-weight:400;font-size:12px}
+.draw-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.draw-btn{padding:12px 28px;border:none;border-radius:99px;background:var(--blue);color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;box-shadow:0 4px 12px rgba(34,167,209,.3)}
+.draw-btn:hover{background:#1b8fb3;transform:translateY(-1px);box-shadow:0 6px 16px rgba(34,167,209,.4)}
+.draw-btn:active{transform:translateY(0)}
+.draw-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.draw-btn.secondary{background:#fff;color:var(--noir);border:1.5px solid var(--border);box-shadow:none}
+.draw-btn.secondary:hover{border-color:var(--noir);background:#fafafa}
+.draw-close{position:absolute;top:14px;right:14px;background:#F4F8FB;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;color:#999;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.draw-close:hover{background:#e8e8e8;color:var(--noir)}
+.draw-progress{height:4px;background:#F4F8FB;border-radius:99px;overflow:hidden;margin-bottom:1rem}
+.draw-progress-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .4s;border-radius:99px}
+@media(max-width:520px){
+  .draw-teams-grid{grid-template-columns:1fr}
+  .draw-name{font-size:24px}
+  .draw-box{padding:1.25rem}
+}
 </style>
 </head>
 <body>
@@ -145,7 +185,7 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
 </div>
 <div class="app">
   <div id="tab-poule">
-    <div class="info-box">8 équipes · 14 matchs de poule (chaque équipe joue 3 ou 4 matchs) · Top 8 qualifiés en quart de finale — Parties en 5 buts max</div>
+    <div class="info-box">8 équipes · 12 matchs de poule (chaque équipe joue 3 matchs) · Top 8 qualifiés en quart de finale — Parties en 5 buts max</div>
     <div class="card"><div class="card-title">Classement</div><div id="ranking-display"><p style="font-size:13px;color:#aaa">En attente du tirage au sort.</p></div></div>
     <div class="card"><div class="card-title">Matchs de poule</div><div id="pool-matches-display"><p style="font-size:13px;color:#aaa">En attente du tirage au sort.</p></div></div>
   </div>
@@ -215,7 +255,8 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
         <div class="card-title">Joueurs — 16 participants (8 équipes de 2)</div>
         <div class="players-grid" id="players-grid"></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-primary" onclick="tirageBinomes()">Tirer les binômes & générer les matchs</button>
+          <button class="btn btn-primary" onclick="startInteractiveDraw()">🎲 Tirage interactif (style LDC)</button>
+          <button class="btn" onclick="tirageBinomes()">Tirage instantané</button>
           <button class="btn" onclick="clearScores()" style="color:#B07D00;border-color:var(--amber)">Effacer les scores</button>
           <button class="btn btn-danger" onclick="resetAll()">Réinitialiser tout</button>
         </div>
@@ -226,6 +267,7 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
   </div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="draw-modal-container"></div>
 <script>
 const SUPABASE_URL='https://ixquakphvkgfgffcjqyu.supabase.co';
 const SUPABASE_KEY='sb_publishable_722pkcDBiaF4tkTR0IjxNA_1HKP_OpF';
@@ -262,8 +304,7 @@ function generatePoolSchedule(){
   const FIXED=[
     [0,7],[1,6],[2,5],[3,4],
     [0,6],[7,5],[1,4],[2,3],
-    [0,5],[6,4],[7,3],[1,2],
-    [3,6],[2,7]
+    [0,5],[6,4],[7,3],[1,2]
   ];
   const perm=Array.from({length:NB_TEAMS},(_,i)=>i);
   for(let i=perm.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[perm[i],perm[j]]=[perm[j],perm[i]];}
@@ -335,7 +376,7 @@ async function tirageBinomes(){
   state.poolScores={};state.finaleScores={};
   ['admin-pool-scores','admin-finale-scores','teams-display','pool-matches-display','ranking-display','bracket-vis'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
   await saveState();
-  toast('Tirage effectué — 14 matchs générés !');
+  toast('Tirage effectué — 12 matchs générés !');
   renderAll();
   setTimeout(()=>{startPolling();tirageEnCours=false;},1000);
 }
@@ -497,7 +538,7 @@ function bkCard(key,f){
 }
 function renderBracket(){
   if(!poolComplete()){
-    const done=poolMatchesDone(),total=state.poolMatches?state.poolMatches.length:14;
+    const done=poolMatchesDone(),total=state.poolMatches?state.poolMatches.length:12;
     document.getElementById('bracket-vis').innerHTML=`<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center">
       <div style="font-size:32px;margin-bottom:12px">⏳</div>
       <div style="font-size:15px;font-weight:600;color:var(--noir);margin-bottom:6px">Phase finale verrouillée</div>
@@ -595,7 +636,7 @@ function renderAdminFinaleScores(){
   if(!ac||ac.style.display==='none'||ac.classList.contains('admin-hidden'))return;
   if(!state.teams){document.getElementById('admin-finale-scores').innerHTML='<p style="font-size:13px;color:#aaa">Effectuez d\'abord le tirage.</p>';return;}
   if(!poolComplete()){
-    const done=poolMatchesDone(),total=state.poolMatches?state.poolMatches.length:14;
+    const done=poolMatchesDone(),total=state.poolMatches?state.poolMatches.length:12;
     document.getElementById('admin-finale-scores').innerHTML=`<div style="background:var(--blue20);border-left:3px solid var(--blue);padding:12px 16px;font-size:13px;color:var(--blue)">
       <strong>Phase finale verrouillée</strong> — Saisissez d'abord les ${total} scores de poule.<br>
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px">${done} / ${total} matchs joués</span></div>`;return;
@@ -652,6 +693,160 @@ function showTab(name,btn){
   document.querySelectorAll('.app > div[id^="tab-"]').forEach(d=>d.style.display='none');
   document.getElementById('tab-'+name).style.display='block';
   if(btn)btn.classList.add('active');
+}
+
+/* ===== TIRAGE INTERACTIF STYLE LDC ===== */
+let drawState=null;
+
+function startInteractiveDraw(){
+  // Vérifier que tous les noms sont saisis
+  const inputs=document.querySelectorAll('.p-inp');
+  const noms=Array.from(inputs).map((inp,i)=>inp.value.trim()||`Joueur ${i+1}`);
+  // Si tirage existant, demander confirmation
+  if(state.teams){
+    if(!confirm('Lancer un nouveau tirage interactif ?\nLes équipes et scores actuels seront réinitialisés.'))return;
+  }
+  // Sauvegarder les noms
+  state.players=noms;
+  // Initialiser l'état du tirage
+  drawState={
+    pool:shuffle([...noms]), // ordre de tirage aléatoire
+    drawn:[], // joueurs déjà tirés (dans l'ordre)
+    teams:Array.from({length:NB_TEAMS},()=>[]), // 8 équipes vides
+    currentName:null,
+    rolling:false
+  };
+  // Bloquer le polling pendant le tirage
+  tirageEnCours=true;
+  if(pollingInterval){clearInterval(pollingInterval);pollingInterval=null;}
+  renderDrawModal();
+}
+
+function getCurrentTeamSlot(){
+  // Retourne {teamIdx, slotIdx} pour le prochain emplacement à remplir
+  // On remplit par alternance : tous les joueurs A d'abord (1 par équipe), puis tous les B
+  // Index global drawn.length → teamIdx, slotIdx
+  const i=drawState.drawn.length;
+  if(i<NB_TEAMS){return{teamIdx:i,slotIdx:0};} // 1er round : 1 joueur par équipe
+  return{teamIdx:i-NB_TEAMS,slotIdx:1}; // 2e round : 2e joueur par équipe
+}
+
+function renderDrawModal(){
+  const container=document.getElementById('draw-modal-container');
+  if(!drawState){container.innerHTML='';return;}
+  
+  const total=drawState.pool.length+drawState.drawn.length;
+  const progress=(drawState.drawn.length/total)*100;
+  const slot=getCurrentTeamSlot();
+  const isComplete=drawState.drawn.length===total;
+  
+  let teamsHtml='';
+  for(let i=0;i<NB_TEAMS;i++){
+    const t=drawState.teams[i];
+    const isFull=t.length===2;
+    const isNext=!isComplete&&slot.teamIdx===i;
+    const cls=isFull?'full':isNext?'next':'';
+    teamsHtml+=`<div class="draw-team-card ${cls}">
+      <div class="draw-team-label">Équipe ${i+1}${isNext?' · prochaine':''}${isFull?' · complète':''}</div>
+      <div class="draw-team-slot">
+        ${t[0]?`<div>${t[0]}</div>`:'<div class="empty">— en attente —</div>'}
+        ${t[1]?`<div>& ${t[1]}</div>`:t[0]?'<div class="empty">& en attente</div>':''}
+      </div>
+    </div>`;
+  }
+  
+  const currentSlotLabel=isComplete?'Tirage terminé !':`Équipe ${slot.teamIdx+1} · Joueur ${slot.slotIdx===0?'A':'B'}`;
+  
+  const currentHtml=`<div class="draw-current">
+    <div class="draw-step">${isComplete?'🎉':'Joueur '+(drawState.drawn.length+1)+' / '+total}</div>
+    <div class="draw-name ${drawState.rolling?'rolling':''} ${!drawState.currentName?'placeholder':''}">${drawState.currentName||'Cliquez sur "Tirer" pour révéler'}</div>
+    ${drawState.currentName&&!isComplete?`<div class="draw-team">→ ${currentSlotLabel}</div>`:''}
+    ${isComplete?'<div class="draw-team">Toutes les équipes sont formées</div>':''}
+  </div>`;
+  
+  const actionsHtml=isComplete
+    ? `<button class="draw-btn" onclick="confirmDraw()">Valider et générer les matchs</button>
+       <button class="draw-btn secondary" onclick="cancelDraw()">Annuler</button>`
+    : drawState.rolling
+    ? `<button class="draw-btn" disabled>Tirage en cours…</button>`
+    : `<button class="draw-btn" onclick="drawNext()">${drawState.drawn.length===0?'Commencer le tirage':'Tirer le prochain joueur'}</button>
+       <button class="draw-btn secondary" onclick="cancelDraw()">Annuler</button>`;
+  
+  container.innerHTML=`<div class="draw-modal">
+    <div class="draw-box">
+      <button class="draw-close" onclick="cancelDraw()" aria-label="Fermer">×</button>
+      <div class="draw-title">Tirage au sort des binômes</div>
+      <div class="draw-sub">Style Ligue des Champions · ${NB_TEAMS} équipes</div>
+      <div class="draw-progress"><div class="draw-progress-bar" style="width:${progress}%"></div></div>
+      ${currentHtml}
+      <div class="draw-teams-grid">${teamsHtml}</div>
+      <div class="draw-actions">${actionsHtml}</div>
+    </div>
+  </div>`;
+}
+
+function drawNext(){
+  if(!drawState||drawState.rolling||drawState.pool.length===0)return;
+  drawState.rolling=true;
+  renderDrawModal();
+  // Effet de "défilement" : on affiche plusieurs noms rapidement avant de s'arrêter sur le bon
+  const finalName=drawState.pool[0]; // premier de la pool mélangée
+  const candidates=[...drawState.pool];
+  let tickCount=0;
+  const maxTicks=12; // ~1.2 seconde de défilement
+  const interval=setInterval(()=>{
+    if(tickCount>=maxTicks){
+      clearInterval(interval);
+      // Stop final : on affiche le vrai nom
+      drawState.currentName=finalName;
+      drawState.pool.shift();
+      drawState.drawn.push(finalName);
+      // Assigner à l'équipe
+      const slot=getCurrentTeamSlot();
+      // (slot calcule pour la prochaine, donc on recule de 1 pour assigner)
+      const i=drawState.drawn.length-1;
+      const teamIdx=i<NB_TEAMS?i:i-NB_TEAMS;
+      const slotIdx=i<NB_TEAMS?0:1;
+      drawState.teams[teamIdx][slotIdx]=finalName;
+      drawState.rolling=false;
+      renderDrawModal();
+      return;
+    }
+    const idx=Math.floor(Math.random()*candidates.length);
+    drawState.currentName=candidates[idx];
+    renderDrawModal();
+    tickCount++;
+  },90);
+}
+
+async function confirmDraw(){
+  if(!drawState)return;
+  // Construire state.teams à partir des binômes tirés
+  state.teams=drawState.teams.map((members,i)=>({
+    name:`Équipe ${i+1}`,
+    members:`${members[0]} & ${members[1]}`
+  }));
+  state.poolMatches=generatePoolSchedule();
+  state.poolScores={};state.finaleScores={};
+  // Nettoyage
+  drawState=null;
+  document.getElementById('draw-modal-container').innerHTML='';
+  // Forcer recréation DOM
+  ['admin-pool-scores','admin-finale-scores','teams-display','pool-matches-display','ranking-display','bracket-vis'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
+  await saveState();
+  toast('Tirage validé — 12 matchs générés !');
+  renderAll();
+  setTimeout(()=>{startPolling();tirageEnCours=false;},1000);
+}
+
+function cancelDraw(){
+  if(drawState&&drawState.drawn.length>0){
+    if(!confirm('Annuler le tirage en cours ? Aucune équipe ne sera formée.'))return;
+  }
+  drawState=null;
+  document.getElementById('draw-modal-container').innerHTML='';
+  startPolling();
+  tirageEnCours=false;
 }
 
 loadState();startPolling();
