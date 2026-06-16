@@ -257,25 +257,36 @@ function checkToken(){
     document.getElementById('token-err').style.display='none';renderAdminScores();
   }else{document.getElementById('token-err').style.display='block';}
 }
+let tirageEnCours=false;
 async function tirageBinomes(){
+  if(tirageEnCours)return;
+  // Récupérer les noms tapés AVANT toute confirmation
   const inputs=document.querySelectorAll('.p-inp');
   const noms=Array.from(inputs).map((inp,i)=>inp.value.trim()||state.players[i]||`Joueur ${i+1}`);
-  if(state.teams){if(!confirm('Relancer le tirage ?\nLes équipes et scores seront réinitialisés, les noms conservés.'))return;}
+  // Demander confirmation si tirage existant
+  if(state.teams){
+    if(!confirm('Relancer le tirage ?\nLes équipes et scores seront réinitialisés, les noms conservés.'))return;
+  }
+  tirageEnCours=true;
+  // Bloquer le polling pendant le tirage pour éviter les écrasements
+  const oldPolling=pollingInterval;
+  if(pollingInterval){clearInterval(pollingInterval);pollingInterval=null;}
+  // Appliquer les changements
   state.players=noms;
-  const s=shuffle([...state.players]);
+  const s=shuffle([...noms]);
   state.teams=Array.from({length:7},(_,i)=>({name:`Équipe ${i+1}`,members:`${s[i*2]} & ${s[i*2+1]}`}));
   state.poolMatches=generatePoolSchedule();
   state.poolScores={};state.finaleScores={};
+  // Vider TOUS les containers AVANT renderAll pour forcer la recréation
+  ['admin-pool-scores','admin-finale-scores','teams-display','pool-matches-display','ranking-display','bracket-vis'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.innerHTML='';
+  });
+  // Sauvegarder
   await saveState();
   toast('Tirage effectué — 10 matchs générés !');
-  // Forcer la recréation complète du DOM (sinon les anciennes équipes restent affichées)
-  document.getElementById('admin-pool-scores').innerHTML='';
-  document.getElementById('admin-finale-scores').innerHTML='';
-  document.getElementById('teams-display').innerHTML='';
-  document.getElementById('pool-matches-display').innerHTML='';
-  document.getElementById('ranking-display').innerHTML='';
-  document.getElementById('bracket-vis').innerHTML='';
   renderAll();
+  // Réactiver le polling après 1s pour s'assurer que la sauvegarde a bien propagé
+  setTimeout(()=>{startPolling();tirageEnCours=false;},1000);
 }
 async function clearScores(){
   if(!confirm('Effacer TOUS les scores (poule + phase finale) ?\nLes équipes et le tirage seront conservés.'))return;
