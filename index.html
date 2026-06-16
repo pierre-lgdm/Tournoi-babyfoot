@@ -252,8 +252,9 @@ header{background:var(--blue);padding:0 1.25rem;display:flex;align-items:center;
     </div>
     <div class="admin-hidden" id="admin-content">
       <div class="card">
-        <div class="card-title">Joueurs — 16 participants (8 équipes de 2)</div>
-        <div class="players-grid" id="players-grid"></div>
+        <div class="card-title">Joueurs — 16 participants répartis en 4 chapeaux</div>
+        <p style="font-size:12px;color:#888;margin-bottom:1rem">Les binômes seront formés ainsi : 4 équipes « Très très fort + Débutant » et 4 équipes « Fort + Moyen »</p>
+        <div id="players-grid"></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-primary" onclick="startInteractiveDraw()">🎲 Tirage interactif (style LDC)</button>
           <button class="btn" onclick="tirageBinomes()">Tirage instantané</button>
@@ -370,8 +371,17 @@ async function tirageBinomes(){
   tirageEnCours=true;
   if(pollingInterval){clearInterval(pollingInterval);pollingInterval=null;}
   state.players=noms;
-  const s=shuffle([...noms]);
-  state.teams=Array.from({length:NB_TEAMS},(_,i)=>({name:`Équipe ${i+1}`,members:`${s[i*2]} & ${s[i*2+1]}`}));
+  // Tirage avec chapeaux : 4 équipes (TTF + Débutant) + 4 équipes (Fort + Moyen)
+  const TTF=shuffle(noms.slice(0,4));
+  const Forts=shuffle(noms.slice(4,8));
+  const Moyens=shuffle(noms.slice(8,12));
+  const Debutants=shuffle(noms.slice(12,16));
+  const teams=[];
+  // Équipes 1-4 : TTF + Débutant
+  for(let i=0;i<4;i++)teams.push({name:`Équipe ${i+1}`,members:`${TTF[i]} & ${Debutants[i]}`,niveau:'TTF+Déb'});
+  // Équipes 5-8 : Fort + Moyen
+  for(let i=0;i<4;i++)teams.push({name:`Équipe ${i+5}`,members:`${Forts[i]} & ${Moyens[i]}`,niveau:'F+Moy'});
+  state.teams=teams;
   state.poolMatches=generatePoolSchedule();
   state.poolScores={};state.finaleScores={};
   ['admin-pool-scores','admin-finale-scores','teams-display','pool-matches-display','ranking-display','bracket-vis'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
@@ -671,12 +681,27 @@ function renderPlayersGrid(){
   const anyFocused=Array.from(existing).some(inp=>document.activeElement===inp);
   if(anyFocused)return;
   if(existing.length===NB_PLAYERS){existing.forEach((inp,i)=>{inp.value=state.players[i]||'';});return;}
-  let h='';
-  for(let i=0;i<NB_PLAYERS;i++){
-    const ti=Math.floor(i/2);
-    if(i%2===0)h+=`<div style="grid-column:1/-1;font-size:11px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-top:${i>0?'8px':'0'}">Équipe ${ti+1}</div>`;
-    h+=`<input class="player-inp p-inp" placeholder="Joueur ${i%2===0?'A':'B'}" value="${state.players[i]||''}"/>`;
-  }
+  // 4 chapeaux × 4 joueurs : indices 0-3 = TTF, 4-7 = Forts, 8-11 = Moyens, 12-15 = Débutants
+  const chapeaux=[
+    {nom:'Très très forts',couleur:'#22A7D1',bg:'#D3EDF6',icon:'⭐⭐⭐'},
+    {nom:'Forts',couleur:'#1b8fb3',bg:'#E8F5FA',icon:'⭐⭐'},
+    {nom:'Moyens',couleur:'#FAC775',bg:'#FEF3DC',icon:'⭐'},
+    {nom:'Débutants',couleur:'#9EE44A',bg:'#E7F8D2',icon:'🌱'}
+  ];
+  let h='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">';
+  chapeaux.forEach((ch,ci)=>{
+    h+=`<div style="background:${ch.bg};border:1.5px solid ${ch.couleur};border-radius:10px;padding:12px">
+      <div style="font-size:11px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:${ch.couleur};font-weight:600;margin-bottom:8px">
+        Chapeau ${ci+1} · ${ch.icon} ${ch.nom}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:6px">`;
+    for(let i=0;i<4;i++){
+      const idx=ci*4+i;
+      h+=`<input class="player-inp p-inp" placeholder="Joueur ${i+1}" value="${state.players[idx]||''}" style="background:#fff"/>`;
+    }
+    h+='</div></div>';
+  });
+  h+='</div>';
   grid.innerHTML=h;
 }
 function renderQR(){
@@ -699,24 +724,33 @@ function showTab(name,btn){
 let drawState=null;
 
 function startInteractiveDraw(){
-  // Vérifier que tous les noms sont saisis
   const inputs=document.querySelectorAll('.p-inp');
   const noms=Array.from(inputs).map((inp,i)=>inp.value.trim()||`Joueur ${i+1}`);
-  // Si tirage existant, demander confirmation
   if(state.teams){
     if(!confirm('Lancer un nouveau tirage interactif ?\nLes équipes et scores actuels seront réinitialisés.'))return;
   }
-  // Sauvegarder les noms
   state.players=noms;
-  // Initialiser l'état du tirage
+  // Pré-organiser par chapeau, mélanger l'ordre dans chaque chapeau
+  // Ordre du tirage : on alterne TTF→Déb→TTF→Déb...(4 équipes), puis Fort→Moy→Fort→Moy...(4 équipes)
+  const TTF=shuffle(noms.slice(0,4));
+  const Forts=shuffle(noms.slice(4,8));
+  const Moyens=shuffle(noms.slice(8,12));
+  const Debutants=shuffle(noms.slice(12,16));
+  // Construction de la séquence : pour chaque équipe 1-4, tirer 1 TTF puis 1 Déb
+  // Pour chaque équipe 5-8, tirer 1 Fort puis 1 Moy
+  const sequence=[];
+  for(let i=0;i<4;i++){sequence.push({nom:TTF[i],chapeau:0,teamIdx:i,slot:0});sequence.push({nom:Debutants[i],chapeau:3,teamIdx:i,slot:1});}
+  for(let i=0;i<4;i++){sequence.push({nom:Forts[i],chapeau:1,teamIdx:i+4,slot:0});sequence.push({nom:Moyens[i],chapeau:2,teamIdx:i+4,slot:1});}
   drawState={
-    pool:shuffle([...noms]), // ordre de tirage aléatoire
-    drawn:[], // joueurs déjà tirés (dans l'ordre)
-    teams:Array.from({length:NB_TEAMS},()=>[]), // 8 équipes vides
+    sequence:sequence,
+    drawn:[],
+    teams:Array.from({length:NB_TEAMS},()=>[]),
     currentName:null,
-    rolling:false
+    currentChapeau:null,
+    rolling:false,
+    // Pour l'effet de défilement : noms restants par chapeau
+    poolByChapeau:[TTF.slice(),Forts.slice(),Moyens.slice(),Debutants.slice()]
   };
-  // Bloquer le polling pendant le tirage
   tirageEnCours=true;
   if(pollingInterval){clearInterval(pollingInterval);pollingInterval=null;}
   renderDrawModal();
@@ -735,19 +769,28 @@ function renderDrawModal(){
   const container=document.getElementById('draw-modal-container');
   if(!drawState){container.innerHTML='';return;}
   
-  const total=drawState.pool.length+drawState.drawn.length;
-  const progress=(drawState.drawn.length/total)*100;
-  const slot=getCurrentTeamSlot();
-  const isComplete=drawState.drawn.length===total;
+  const total=drawState.sequence.length;
+  const done=drawState.drawn.length;
+  const progress=(done/total)*100;
+  const isComplete=done===total;
+  const nextItem=isComplete?null:drawState.sequence[done];
+  
+  const chapeaux=[
+    {nom:'Très très forts',couleur:'#22A7D1',bg:'#D3EDF6',icon:'⭐⭐⭐'},
+    {nom:'Forts',couleur:'#1b8fb3',bg:'#E8F5FA',icon:'⭐⭐'},
+    {nom:'Moyens',couleur:'#FAC775',bg:'#FEF3DC',icon:'⭐'},
+    {nom:'Débutants',couleur:'#9EE44A',bg:'#E7F8D2',icon:'🌱'}
+  ];
   
   let teamsHtml='';
   for(let i=0;i<NB_TEAMS;i++){
     const t=drawState.teams[i];
-    const isFull=t.length===2;
-    const isNext=!isComplete&&slot.teamIdx===i;
+    const isFull=t.length===2&&t[0]&&t[1];
+    const isNext=nextItem&&nextItem.teamIdx===i;
     const cls=isFull?'full':isNext?'next':'';
+    const niveau=i<4?'TTF + Déb':'F + Moy';
     teamsHtml+=`<div class="draw-team-card ${cls}">
-      <div class="draw-team-label">Équipe ${i+1}${isNext?' · prochaine':''}${isFull?' · complète':''}</div>
+      <div class="draw-team-label">Équipe ${i+1} · ${niveau}${isNext?' · PROCHAINE':''}${isFull?' · ✓':''}</div>
       <div class="draw-team-slot">
         ${t[0]?`<div>${t[0]}</div>`:'<div class="empty">— en attente —</div>'}
         ${t[1]?`<div>& ${t[1]}</div>`:t[0]?'<div class="empty">& en attente</div>':''}
@@ -755,13 +798,20 @@ function renderDrawModal(){
     </div>`;
   }
   
-  const currentSlotLabel=isComplete?'Tirage terminé !':`Équipe ${slot.teamIdx+1} · Joueur ${slot.slotIdx===0?'A':'B'}`;
+  // Indicateur de chapeau actuel
+  let chapeauBadge='';
+  if(nextItem){
+    const ch=chapeaux[nextItem.chapeau];
+    chapeauBadge=`<div style="display:inline-block;background:${ch.bg};color:${ch.couleur};padding:5px 14px;border-radius:99px;font-size:11px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:8px;border:1.5px solid ${ch.couleur}">${ch.icon} Chapeau ${nextItem.chapeau+1} · ${ch.nom}</div>`;
+  }
+  
+  const slotLabel=isComplete?'Tirage terminé !':`→ Équipe ${nextItem.teamIdx+1} · ${nextItem.slot===0?'Joueur principal':'Coéquipier'}`;
   
   const currentHtml=`<div class="draw-current">
-    <div class="draw-step">${isComplete?'🎉':'Joueur '+(drawState.drawn.length+1)+' / '+total}</div>
-    <div class="draw-name ${drawState.rolling?'rolling':''} ${!drawState.currentName?'placeholder':''}">${drawState.currentName||'Cliquez sur "Tirer" pour révéler'}</div>
-    ${drawState.currentName&&!isComplete?`<div class="draw-team">→ ${currentSlotLabel}</div>`:''}
-    ${isComplete?'<div class="draw-team">Toutes les équipes sont formées</div>':''}
+    <div class="draw-step">${isComplete?'🎉 Toutes les équipes sont formées':'Joueur '+(done+1)+' / '+total}</div>
+    ${!isComplete?chapeauBadge:''}
+    <div class="draw-name ${drawState.rolling?'rolling':''} ${!drawState.currentName?'placeholder':''}">${drawState.currentName||'Cliquez sur « Tirer » pour révéler'}</div>
+    ${drawState.currentName&&!isComplete?`<div class="draw-team">${slotLabel}</div>`:''}
   </div>`;
   
   const actionsHtml=isComplete
@@ -769,14 +819,14 @@ function renderDrawModal(){
        <button class="draw-btn secondary" onclick="cancelDraw()">Annuler</button>`
     : drawState.rolling
     ? `<button class="draw-btn" disabled>Tirage en cours…</button>`
-    : `<button class="draw-btn" onclick="drawNext()">${drawState.drawn.length===0?'Commencer le tirage':'Tirer le prochain joueur'}</button>
+    : `<button class="draw-btn" onclick="drawNext()">${done===0?'Commencer le tirage':'Tirer le prochain joueur'}</button>
        <button class="draw-btn secondary" onclick="cancelDraw()">Annuler</button>`;
   
   container.innerHTML=`<div class="draw-modal">
     <div class="draw-box">
       <button class="draw-close" onclick="cancelDraw()" aria-label="Fermer">×</button>
       <div class="draw-title">Tirage au sort des binômes</div>
-      <div class="draw-sub">Style Ligue des Champions · ${NB_TEAMS} équipes</div>
+      <div class="draw-sub">Style Ligue des Champions · 4 chapeaux · 8 équipes</div>
       <div class="draw-progress"><div class="draw-progress-bar" style="width:${progress}%"></div></div>
       ${currentHtml}
       <div class="draw-teams-grid">${teamsHtml}</div>
@@ -786,38 +836,41 @@ function renderDrawModal(){
 }
 
 function drawNext(){
-  if(!drawState||drawState.rolling||drawState.pool.length===0)return;
+  if(!drawState||drawState.rolling)return;
+  const done=drawState.drawn.length;
+  if(done>=drawState.sequence.length)return;
   drawState.rolling=true;
+  const item=drawState.sequence[done];
+  const finalName=item.nom;
+  // Récupérer les noms restants dans le même chapeau pour l'effet de défilement
+  const candidates=drawState.poolByChapeau[item.chapeau].length>0
+    ?drawState.poolByChapeau[item.chapeau]
+    :[finalName];
   renderDrawModal();
-  // Effet de "défilement" : on affiche plusieurs noms rapidement avant de s'arrêter sur le bon
-  const finalName=drawState.pool[0]; // premier de la pool mélangée
-  const candidates=[...drawState.pool];
   let tickCount=0;
-  const maxTicks=12; // ~1.2 seconde de défilement
+  const maxTicks=14;
   const interval=setInterval(()=>{
     if(tickCount>=maxTicks){
       clearInterval(interval);
-      // Stop final : on affiche le vrai nom
       drawState.currentName=finalName;
-      drawState.pool.shift();
-      drawState.drawn.push(finalName);
-      // Assigner à l'équipe
-      const slot=getCurrentTeamSlot();
-      // (slot calcule pour la prochaine, donc on recule de 1 pour assigner)
-      const i=drawState.drawn.length-1;
-      const teamIdx=i<NB_TEAMS?i:i-NB_TEAMS;
-      const slotIdx=i<NB_TEAMS?0:1;
-      drawState.teams[teamIdx][slotIdx]=finalName;
+      drawState.drawn.push(item);
+      drawState.teams[item.teamIdx][item.slot]=finalName;
+      // Retirer le nom de la pool du chapeau
+      const poolCh=drawState.poolByChapeau[item.chapeau];
+      const idx=poolCh.indexOf(finalName);
+      if(idx>=0)poolCh.splice(idx,1);
       drawState.rolling=false;
       renderDrawModal();
       return;
     }
-    const idx=Math.floor(Math.random()*candidates.length);
-    drawState.currentName=candidates[idx];
+    drawState.currentName=candidates[Math.floor(Math.random()*candidates.length)];
     renderDrawModal();
     tickCount++;
-  },90);
+  },85);
 }
+
+// La fonction getCurrentTeamSlot n'est plus utilisée mais on la garde par compatibilité (vide)
+function getCurrentTeamSlot(){return{teamIdx:0,slotIdx:0};}
 
 async function confirmDraw(){
   if(!drawState)return;
